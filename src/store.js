@@ -10,32 +10,35 @@ const store = new Vuex.Store({
     products: {},
     manufacturers: {},
     uniqueManufacturers: [],
-    currentCategory: "",
+    updates: {},
   },
   mutations: {
     updateCategory(state, props) {
-      state.products[props.category] = props.data;
+      const category = props.category;
+      const data = props.data;
+      state.products = { ...state.products, [category]: data };
     },
-
     updateManufacturers(state, props) {
       props.data.forEach((response) => {
         const manufacturer = response.config.data;
         if (response.data.response == "[]") {
           fetchFailedManufacturer(manufacturer);
         } else {
-          state.manufacturers[manufacturer] = response.data.response;
+          state.manufacturers = {
+            ...state.manufacturers,
+            [manufacturer]: response.data.response,
+          };
         }
       });
     },
     updateFailedManufacturer(state, props) {
-      state.manufacturers[props.manufacturer] = props.data;
-      store.getters.getProductArray;
+      state.manufacturers = {
+        ...state.manufacturers,
+        [props.manufacturer]: props.data,
+      };
     },
     updateListOfManufacturers(state, props) {
       state.uniqueManufacturers = props.data;
-    },
-    updateCurrentCategory(state, props) {
-      state.currentCategory = props.currentCategory;
     },
   },
   getters: {
@@ -44,6 +47,9 @@ const store = new Vuex.Store({
         (element) => element.id == id.toUpperCase()
       );
       return element.DATAPAYLOAD;
+    },
+    getProducts: (state) => (category) => {
+      return state.products[category];
     },
   },
 });

@@ -8,29 +8,34 @@ export const fetchProducts = (category) => {
   if (category in store.state.products) {
     return store.state.products[category];
   } else {
-    axios.get(URL + `products/${category}`).then((res) => {
-      store.commit("updateCategory", {
-        category: category,
-        data: res.data,
+    axios
+      .get(URL + `products/${category}`)
+      .then((res) => {
+        store.commit("updateCategory", {
+          category: category,
+          data: res.data,
+        });
+
+        const uniqueManufacturers = [
+          ...new Set(res.data.map((item) => item.manufacturer)),
+        ];
+
+        if (
+          uniqueManufacturers.length ==
+          Object.values(store.state.uniqueManufacturers).length
+        ) {
+          store.getters.getProductArray;
+        } else {
+          fetchManufacturers(uniqueManufacturers);
+        }
+
+        store.commit("updateListOfManufacturers", {
+          data: uniqueManufacturers,
+        });
+      })
+      .then(() => {
+        console.log("haettu");
       });
-
-      const uniqueManufacturers = [
-        ...new Set(res.data.map((item) => item.manufacturer)),
-      ];
-
-      if (
-        uniqueManufacturers.length ==
-        Object.values(store.state.uniqueManufacturers).length
-      ) {
-        store.getters.getProductArray;
-      } else {
-        fetchManufacturers(uniqueManufacturers);
-      }
-
-      store.commit("updateListOfManufacturers", {
-        data: uniqueManufacturers,
-      });
-    });
   }
 };
 

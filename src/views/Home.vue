@@ -1,7 +1,9 @@
 <template>
   <div>
     {{ category }}
+    <div v-if="loading">LOADING...</div>
     <RecycleScroller
+      v-else
       class="scroller"
       :items="products"
       :item-size="32"
@@ -26,10 +28,10 @@ export default {
       return this.$route.params.category;
     },
     products() {
-      return store.state.products[this.category];
+      return store.getters.getProducts(this.category);
     },
     loading() {
-      return this.category in store.state.products ? false : true;
+      return !(this.$route.params.category in store.state.products);
     },
   },
   mounted() {

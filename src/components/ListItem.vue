@@ -1,7 +1,8 @@
 <template>
   <div class="product">
     <div>{{ product.name }}</div>
-    <div>{{ availability }}</div>
+    <div v-if="loading">Loading stock...</div>
+    <div v-else>{{ availability }}</div>
     <div>{{ product.color[0] }}</div>
     <div>${{ product.price }}</div>
     <div>{{ product.manufacturer }}</div>
@@ -24,9 +25,10 @@ export default {
       const regex = /(?<=E>)(.*?)(?=<\/I)/;
       return datapayload.match(regex)[0];
     },
-  },
-  created() {
-    this.availability;
+    loading() {
+      const manufacturer = this.product.manufacturer;
+      return !(manufacturer in store.state.manufacturers);
+    },
   },
 };
 </script>
