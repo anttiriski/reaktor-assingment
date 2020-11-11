@@ -14,7 +14,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     updateCategory(state, props) {
-      state.products[props.category] = props.data.slice(0, 50);
+      state.products[props.category] = props.data;
     },
 
     updateManufacturers(state, props) {
@@ -26,7 +26,6 @@ const store = new Vuex.Store({
           state.manufacturers[manufacturer] = response.data.response;
         }
       });
-      store.getters.getProductArray;
     },
     updateFailedManufacturer(state, props) {
       state.manufacturers[props.manufacturer] = props.data;
@@ -37,6 +36,14 @@ const store = new Vuex.Store({
     },
     updateCurrentCategory(state, props) {
       state.currentCategory = props.currentCategory;
+    },
+  },
+  getters: {
+    getAvailability: (state) => (id, manufacturer) => {
+      const element = state.manufacturers[manufacturer].find(
+        (element) => element.id == id.toUpperCase()
+      );
+      return element.DATAPAYLOAD;
     },
   },
 });

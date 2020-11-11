@@ -1,12 +1,24 @@
 <template>
   <div>
     {{ category }}
+    <RecycleScroller
+      class="scroller"
+      :items="products"
+      :item-size="32"
+      key-field="id"
+      v-slot="{ item }"
+    >
+      <ListItem :key="item.id" :product="item" />
+    </RecycleScroller>
   </div>
 </template>
 
 <script>
 import store from "../store.js";
 import { fetchProducts } from "../services.js";
+import { RecycleScroller } from "vue-virtual-scroller";
+import ListItem from "../components/ListItem.vue";
+
 export default {
   name: "Home",
   computed: {
@@ -23,18 +35,22 @@ export default {
   mounted() {
     fetchProducts(this.category);
   },
+  components: {
+    RecycleScroller,
+    ListItem,
+  },
 };
 </script>
 
-<style>
-.list {
-  display: flex;
-  margin: 2rem 1rem 0rem;
+<style scoped>
+.scroller {
+  height: 88vh;
 }
 
-.list div {
-  font-size: 1.7rem;
-  font-weight: bold;
-  width: 20%;
+.user {
+  height: 32%;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
 }
 </style>

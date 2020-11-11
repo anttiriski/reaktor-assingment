@@ -1,48 +1,42 @@
 <template>
-  <div class="flex mx-5 border-b-2 py-4 listItem">
+  <div class="product">
     <div>{{ product.name }}</div>
-    <div>{{ state.availability }}</div>
-    <div class="flex relative">
-      {{ product.color[0] }}
-    </div>
+    <div>{{ availability }}</div>
+    <div>{{ product.color[0] }}</div>
     <div>${{ product.price }}</div>
     <div>{{ product.manufacturer }}</div>
   </div>
 </template>
 
 <script>
-import { computed, reactive } from "vue";
-import ListItemColor from "./ListItemColor.vue";
+import store from "../store.js";
 export default {
   props: {
     product: Object,
+    active: Boolean,
   },
-  setup(props) {
-    const regex = /(?<=E>)(.*?)(?=<\/I)/;
+  computed: {
+    availability() {
+      const id = this.product.id;
+      const manufacturer = this.product.manufacturer;
+      const datapayload = store.getters.getAvailability(id, manufacturer);
 
-    const state = reactive({
-      loading: computed(() => "datapayload" in props.product),
-      availability: computed(() => {
-        if (state.loading) {
-          return props.product.datapayload.match(regex)[0];
-        }
-      }),
-    });
-
-    return {
-      state,
-      ListItemColor,
-    };
+      const regex = /(?<=E>)(.*?)(?=<\/I)/;
+      return datapayload.match(regex)[0];
+    },
+  },
+  created() {
+    this.availability;
   },
 };
 </script>
 
 <style>
-.listItem div {
-  width: 20%;
+.product {
+  display: flex;
 }
 
 .product div {
-  margin: 0.1rem 2rem;
+  width: 20%;
 }
 </style>
