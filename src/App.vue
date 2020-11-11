@@ -5,7 +5,7 @@
       <router-link class="button" to="/shirts">Shirts</router-link>
       <router-link class="button" to="/accessories">Accessories</router-link>
     </div>
-    <router-view />
+    <router-view :key="$route.fullPath" />
   </div>
 </template>
 
