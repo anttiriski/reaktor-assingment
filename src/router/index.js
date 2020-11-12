@@ -9,7 +9,6 @@ const routes = [
     path: "/:category",
     name: "Home",
     component: Home,
-    props: true,
   },
 ];
 

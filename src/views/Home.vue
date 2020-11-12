@@ -1,14 +1,17 @@
 <template>
   <div>
-    {{ category }}
-    <div v-if="loading">LOADING...</div>
+    <div v-if="loading" class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
     <RecycleScroller
       v-else
       class="scroller"
-      :items="products"
-      :item-size="32"
       key-field="id"
       v-slot="{ item }"
+      :items="products"
+      :item-size="50"
+      :buffer="1000"
     >
       <ListItem :key="item.id" :product="item" />
     </RecycleScroller>
@@ -16,10 +19,10 @@
 </template>
 
 <script>
-import store from "../store.js";
 import { fetchProducts } from "../services.js";
 import { RecycleScroller } from "vue-virtual-scroller";
 import ListItem from "../components/ListItem.vue";
+import store from "../store.js";
 
 export default {
   name: "Home",
@@ -34,7 +37,7 @@ export default {
       return !(this.$route.params.category in store.state.products);
     },
   },
-  mounted() {
+  created() {
     fetchProducts(this.category);
   },
   components: {
@@ -46,13 +49,47 @@ export default {
 
 <style scoped>
 .scroller {
-  height: 88vh;
+  height: 87vh;
 }
 
-.user {
-  height: 32%;
-  padding: 0 12px;
-  display: flex;
-  align-items: center;
+.header {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Loading animation below */
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  margin: 100px auto;
+}
+
+.double-bounce1,
+.double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  animation: sk-bounce 2s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  animation-delay: -1s;
+}
+
+@keyframes sk-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
 }
 </style>

@@ -17,12 +17,15 @@ export default {
 
 <style>
 .button {
-  margin: 0 2rem;
+  margin: 0 1.5rem;
   border: 2px solid black;
   padding: 1rem 2rem;
+  color: black;
   border-radius: 10px;
   box-shadow: 0px 4px 0px 0px rgba(92, 92, 92, 0.75);
   text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .button:active {
@@ -31,12 +34,17 @@ export default {
 }
 
 .router-link-active {
-  background-color: rgb(159, 231, 255);
+  background-color: rgb(255, 198, 112);
 }
 
 .nav {
-  margin-top: 2rem;
-  justify-content: center;
   display: flex;
+  justify-content: center;
+  margin: 2rem 0rem;
+}
+
+#app {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 1.1rem;
 }
 </style>

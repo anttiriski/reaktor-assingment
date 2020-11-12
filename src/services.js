@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import store from "./store.js";
 
 const URL = "https://bad-api-assignment.reaktor.com/";
