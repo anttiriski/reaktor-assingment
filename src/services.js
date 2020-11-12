@@ -5,7 +5,7 @@ const URL = "https://bad-api-assignment.reaktor.com/";
 
 export const fetchProducts = (category) => {
   if (category in store.state.products) {
-    return store.state.products[category];
+    return;
   } else {
     axios
       .get(URL + `products/${category}`)
@@ -28,7 +28,7 @@ export const fetchProducts = (category) => {
           fetchManufacturers(uniqueManufacturers);
         }
 
-        store.commit("updateListOfManufacturers", {
+        store.commit("updateUniqueManufacturers", {
           data: uniqueManufacturers,
         });
       })

@@ -31,7 +31,7 @@ export default {
       return this.$route.params.category;
     },
     products() {
-      return store.getters.getProducts(this.category);
+      return store.state.products[this.category];
     },
     loading() {
       return !(this.$route.params.category in store.state.products);
