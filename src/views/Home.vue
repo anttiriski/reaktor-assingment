@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { fetchProducts } from "../services.js";
+import { fetchCategory } from "../services.js";
 import { RecycleScroller } from "vue-virtual-scroller";
 import ListItem from "../components/ListItem.vue";
 import store from "../store.js";
@@ -38,7 +38,7 @@ export default {
     },
   },
   created() {
-    fetchProducts(this.category);
+    fetchCategory(this.category);
   },
   components: {
     RecycleScroller,
