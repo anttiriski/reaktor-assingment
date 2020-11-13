@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import moment from "moment";
 
 Vue.use(Vuex);
 
@@ -10,16 +11,20 @@ const store = new Vuex.Store({
     products: {},
     manufacturers: {},
     uniqueManufacturers: [],
-    updates: {},
+    latestFetch: {},
   },
   mutations: {
     updateCategory(state, props) {
       const category = props.category;
       const data = props.data;
+
       state.products = { ...state.products, [category]: data };
+      updateLatestFetch({ time: moment()._d, parameter: category });
+      console.log(state);
     },
     updateManufacturers(state, props) {
       const manufacturersData = props.data;
+
       manufacturersData.forEach((response) => {
         const manufacturer = response.config.data;
         const data = response.data.response;
@@ -30,6 +35,7 @@ const store = new Vuex.Store({
             ...state.manufacturers,
             [manufacturer]: data,
           };
+          updateLatestFetch({ time: moment()._d, parameter: "manufacturers" });
         }
       });
     },
@@ -55,5 +61,15 @@ const store = new Vuex.Store({
     },
   },
 });
+
+const updateLatestFetch = (props) => {
+  const time = props.time;
+  const parameter = props.parameter;
+
+  store.state.latestFetch = {
+    ...store.state.latestFetch,
+    [parameter]: time,
+  };
+};
 
 export default store;
