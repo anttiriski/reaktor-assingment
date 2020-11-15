@@ -1,8 +1,7 @@
 <template>
   <div class="center">
     <div v-if="loading" class="spinner">
-      <div class="double-bounce1"></div>
-      <div class="double-bounce2"></div>
+      <LoadingAnimation />
     </div>
     <RecycleScroller
       v-else
@@ -22,6 +21,7 @@
 import { fetchCategory } from "../services.js";
 import { RecycleScroller } from "vue-virtual-scroller";
 import ListItem from "../components/ListItem.vue";
+import LoadingAnimation from "../components/LoadingAnimation.vue";
 import store from "../store.js";
 
 export default {
@@ -43,6 +43,7 @@ export default {
   components: {
     RecycleScroller,
     ListItem,
+    LoadingAnimation,
   },
 };
 </script>
@@ -55,41 +56,5 @@ export default {
 .header {
   text-align: center;
   text-transform: uppercase;
-}
-
-/* Loading animation below */
-.spinner {
-  width: 40px;
-  height: 40px;
-  position: relative;
-  margin: 100px auto;
-}
-
-.double-bounce1,
-.double-bounce2 {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: #333;
-  opacity: 0.6;
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  animation: sk-bounce 2s infinite ease-in-out;
-}
-
-.double-bounce2 {
-  animation-delay: -1s;
-}
-
-@keyframes sk-bounce {
-  0%,
-  100% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1);
-  }
 }
 </style>
