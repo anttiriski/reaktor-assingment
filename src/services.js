@@ -69,8 +69,6 @@ export const fetchFailedManufacturer = (manufacturer) => {
   const MAX_RETRY = 5;
   let currentRetry = 0;
 
-  console.log("Failed to fetch: ", manufacturer);
-
   const sendWithRetry = async () => {
     if (currentRetry < MAX_RETRY) {
       try {
@@ -90,7 +88,6 @@ export const fetchFailedManufacturer = (manufacturer) => {
         console.log("Error: ", error);
       }
     } else {
-      console.log("Retrieved several times but still failed...");
       store.commit("updateFailedManufacturer", {
         data: "Failed",
         manufacturer: manufacturer,

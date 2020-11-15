@@ -1,5 +1,13 @@
 <template>
   <div id="app">
+    <a
+      class="source"
+      target="_blanc"
+      href="https://github.com/anttiriski/reaktor-assingment"
+    >
+      <p>Source code on GitHub</p>
+      <p
+    /></a>
     <div class="nav">
       <router-link class="button" to="/jackets">
         <p class="iconText">Jackets</p>
@@ -56,11 +64,15 @@ export default {
 .nav {
   display: flex;
   justify-content: center;
-  margin: 2rem 0rem;
+  margin: 1rem 0rem;
 }
 
 .icon {
   height: 80px;
+}
+
+.source {
+  text-align: center;
 }
 
 @media screen and (max-width: 770px) {
