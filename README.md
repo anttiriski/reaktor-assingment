@@ -10,7 +10,7 @@ There are three categories, **jackets**, **shirts** and **accessories**. Clickin
 
 After clicking one of the buttons, the information and listing data is stored in the browser, reducing unneccessary requests to the server. If the data was retrieved more than five minutes ago, clicking one of the category buttons retrieves the listing data again.
 
-The project is running at www.placeholder.com, if you wanna check it out!
+The project is running at https://fast-fortress-51808.herokuapp.com/, if you wanna check it out!
 
 
 ## Installation
