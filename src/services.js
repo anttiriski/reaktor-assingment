@@ -3,6 +3,9 @@ import store from "./store.js";
 import moment from "moment";
 const URL = "https://bad-api-assignment.reaktor.com/";
 
+/** Fetches the category data, and stores is in vuex
+ *  Checks for new manufacturers, and fetches availability data if needed.
+ * */
 export const fetchCategory = async (category) => {
   const lastFetch = store.state.latestFetch[category];
   const fiveMinutesAgo = moment().subtract(5, "minutes");
@@ -40,6 +43,9 @@ export const fetchCategory = async (category) => {
   }
 };
 
+/** Executes parallel get-requests for every manufacturer in parameter array,
+ *  stores the response in vuex
+ */
 export const fetchManufacturers = async (manufacturers) => {
   try {
     const promises = manufacturers.map((manuf) => {
@@ -57,6 +63,8 @@ export const fetchManufacturers = async (manufacturers) => {
   }
 };
 
+/** A get-request for a single manufacturer,
+ *  if the response from parallel request is empty */
 export const fetchFailedManufacturer = (manufacturer) => {
   const MAX_RETRY = 5;
   let currentRetry = 0;
@@ -83,6 +91,10 @@ export const fetchFailedManufacturer = (manufacturer) => {
       }
     } else {
       console.log("Retrieved several times but still failed...");
+      store.commit("updateFailedManufacturer", {
+        data: "Failed",
+        manufacturer: manufacturer,
+      });
     }
   };
 

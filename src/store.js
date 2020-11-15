@@ -55,15 +55,26 @@ const store = new Vuex.Store({
     },
   },
   getters: {
+    /** Returns "Error :(" if there is problem with the api,
+     *  else returns the availability information of a product */
     getAvailability: (state) => (id, manufacturer) => {
-      const productData = state.manufacturers[manufacturer].find(
-        (product) => product.id == id.toUpperCase()
-      );
-      return productData.DATAPAYLOAD;
+      const manufacturerData = state.manufacturers[manufacturer];
+
+      if (manufacturerData == "Failed") {
+        return "Error :(";
+      } else {
+        const availability = manufacturerData.find(
+          (product) => product.id == id.toUpperCase()
+        ).DATAPAYLOAD;
+
+        const regex = /(?<=E>)(.*?)(?=<\/I)/;
+        return availability.match(regex)[0];
+      }
     },
   },
 });
 
+/** Updates fetch-time for a category */
 const updateLatestFetch = (props) => {
   const time = props.time;
   const parameter = props.parameter;
