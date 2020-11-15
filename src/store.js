@@ -17,10 +17,10 @@ const store = new Vuex.Store({
     updateCategory(state, props) {
       const category = props.category;
       const data = props.data;
+      const currentTime = moment();
 
       state.products = { ...state.products, [category]: data };
-      updateLatestFetch({ time: moment()._d, parameter: category });
-      console.log(state);
+      updateLatestFetch({ time: currentTime, parameter: category });
     },
     updateManufacturers(state, props) {
       const manufacturersData = props.data;
@@ -28,6 +28,8 @@ const store = new Vuex.Store({
       manufacturersData.forEach((response) => {
         const manufacturer = response.config.data;
         const data = response.data.response;
+        const currentTime = moment();
+
         if (data == "[]") {
           fetchFailedManufacturer(manufacturer);
         } else {
@@ -35,7 +37,7 @@ const store = new Vuex.Store({
             ...state.manufacturers,
             [manufacturer]: data,
           };
-          updateLatestFetch({ time: moment()._d, parameter: "manufacturers" });
+          updateLatestFetch({ time: currentTime, parameter: "manufacturers" });
         }
       });
     },

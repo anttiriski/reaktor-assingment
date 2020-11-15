@@ -1,12 +1,14 @@
 import axios from "axios";
 import store from "./store.js";
-
+import moment from "moment";
 const URL = "https://bad-api-assignment.reaktor.com/";
 
 export const fetchCategory = async (category) => {
-  if (category in store.state.products) {
-    return;
-  } else {
+  const lastFetch = store.state.latestFetch[category];
+  const fiveMinutesAgo = moment().subtract(5, "minutes");
+  const fetchNeeded = fiveMinutesAgo.isAfter(lastFetch);
+
+  if (!(category in store.state.products) || fetchNeeded) {
     try {
       const response = await axios.get(URL + `products/${category}`);
       const categoryData = response.data;
@@ -24,7 +26,7 @@ export const fetchCategory = async (category) => {
         JSON.stringify(store.state.uniqueManufacturers)
       );
 
-      // If new manufacturers are found, fetch everything
+      // If new manufacturers are found, fetch them
       if (vuexManufacturers.sort() != uniqueManufacturers.sort()) {
         fetchManufacturers(uniqueManufacturers);
       }
