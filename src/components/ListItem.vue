@@ -33,7 +33,9 @@ export default {
 <style>
 .product {
   display: flex;
+  margin: auto;
   border-bottom: 2px rgb(255, 237, 211) solid;
+  max-width: 1400px;
 }
 
 .product div {

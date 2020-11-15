@@ -1,9 +1,18 @@
 <template>
   <div id="app">
     <div class="nav">
-      <router-link class="button" to="/jackets">Jackets</router-link>
-      <router-link class="button" to="/shirts">Shirts</router-link>
-      <router-link class="button" to="/accessories">Accessories</router-link>
+      <router-link class="button" to="/jackets">
+        <p class="iconText">Jackets</p>
+        <img class="icon" src="./icons/jacket.svg" alt="Jacket" />
+      </router-link>
+      <router-link class="button" to="/shirts">
+        <p class="iconText">Shirts</p>
+        <img class="icon" src="./icons/shirt.svg" alt="Shirt" />
+      </router-link>
+      <router-link class="button" to="/accessories">
+        <p class="iconText">Accessories</p>
+        <img class="icon" src="./icons/watch.svg" alt="Watch" />
+      </router-link>
     </div>
     <router-view :key="$route.fullPath" />
   </div>
@@ -16,16 +25,23 @@ export default {
 </script>
 
 <style>
+#app {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 1.1rem;
+}
+
 .button {
   margin: 0 1.5rem;
   border: 2px solid black;
-  padding: 1rem 2rem;
+  padding: 0.6rem 1.2rem;
   color: black;
   border-radius: 10px;
   box-shadow: 0px 4px 0px 0px rgba(92, 92, 92, 0.75);
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 600;
+  display: flex;
+  align-items: center;
 }
 
 .button:active {
@@ -43,8 +59,13 @@ export default {
   margin: 2rem 0rem;
 }
 
-#app {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 1.1rem;
+.icon {
+  height: 80px;
+}
+
+@media screen and (max-width: 770px) {
+  .iconText {
+    display: none;
+  }
 }
 </style>

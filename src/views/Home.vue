@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="center">
     <div v-if="loading" class="spinner">
       <div class="double-bounce1"></div>
       <div class="double-bounce2"></div>
@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 .scroller {
-  height: 87vh;
+  height: 82vh;
 }
 
 .header {
