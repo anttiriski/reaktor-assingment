@@ -3,7 +3,11 @@
     <div>{{ product.name }}</div>
     <div v-if="loading">Loading Stock...</div>
     <div v-else>{{ availability }}</div>
-    <div>{{ product.color[0] }}</div>
+    <div>
+      <p class="colors" v-for="color in product.color" :key="color">
+        {{ color }}
+      </p>
+    </div>
     <div>${{ product.price }}</div>
     <div>{{ product.manufacturer }}</div>
   </div>
@@ -46,5 +50,9 @@ export default {
   text-align: center;
   height: 48px;
   text-transform: uppercase;
+}
+
+.colors {
+  margin: 0px 3px;
 }
 </style>
