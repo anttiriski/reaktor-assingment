@@ -79,5 +79,19 @@ export default {
   .iconText {
     display: none;
   }
+
+  #app {
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .icon {
+    height: 50px;
+  }
+
+  .button {
+    margin: 0rem 0.5rem;
+  }
 }
 </style>
